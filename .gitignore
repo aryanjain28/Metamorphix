@@ -1,0 +1,38 @@
+# Generic
+
+.DS_Store
+
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+
+# Frontend
+
+# dependencies
+/frontend/node_modules
+/frontend/.pnp
+/frontend/.pnp.js
+
+# testing
+/frontend/coverage
+
+# next.js
+/frontend/.next/
+/frontend/out/
+
+# production
+/frontend/build
+
+# misc
+/frontend/.DS_Store
+
+# debug
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*   
+/frontend/yarn-error.log*
+
+
+#Backend
