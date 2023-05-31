@@ -6,6 +6,19 @@ const { User } = require("../models/userModel");
 const en = require("../utils/constants");
 const { isDateValid } = require("../utils/utils");
 
+// Get User Info
+const getUserInfo = asyncHandler(async (req, res) => {
+  const user = await User.findOne({ id: req.body.params }).select("-password");
+  if (!user) {
+    res.status(404).json({
+      message: en.user.notFound,
+      status: 404,
+    });
+    throw new Error(en.user.notFound);
+  }
+  res.status(200).json({ data: user, status: 200 });
+});
+
 // Register a new user.
 const registerUser = asyncHandler(async (req, res) => {
   const { fName, lName, dob, email, password } = req.body.data;
@@ -82,7 +95,10 @@ const loginUser = asyncHandler(async (req, res) => {
 
   if (await bcrypt.compare(password, user.password)) {
     res.status(200).json({
-      token: generateToken(user.id),
+      data: {
+        id: user.id,
+        token: generateToken(user.id),
+      },
     });
   } else {
     res.status(400).json({
@@ -100,4 +116,5 @@ const generateToken = (id) => {
 module.exports = {
   registerUser,
   loginUser,
+  getUserInfo,
 };
