@@ -1,0 +1,16 @@
+const en = {
+  dbConnectionErr: "Error while connecting to db.",
+  dbConnectionSuccess: "Connected to database.",
+  allFieldsRequired: "All fields are required.",
+  invalidDate: "Invalid Date",
+
+  user: {
+    alreadyExists: "User already exists.",
+    createSuccess: "User created successfully",
+    createFail: "Unable to create user.",
+    notFound: "User not found",
+    incorrectPassword: "Incorrect Password",
+  },
+};
+
+module.exports = en;
