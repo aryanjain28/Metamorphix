@@ -2,10 +2,12 @@ const mongoose = require("mongoose");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 const { User } = require("../models/userModel");
 const en = require("../utils/constants");
 const { isDateValid } = require("../utils/utils");
 
+// @GET
 // Get User Info
 const getUserInfo = asyncHandler(async (req, res) => {
   const user = await User.findOne({ id: req.body.params }).select("-password");
@@ -19,6 +21,7 @@ const getUserInfo = asyncHandler(async (req, res) => {
   res.status(200).json({ data: user, status: 200 });
 });
 
+// @POST
 // Register a new user.
 const registerUser = asyncHandler(async (req, res) => {
   const { fName, lName, dob, email, password } = req.body.data;
@@ -52,17 +55,8 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    res.status(200).json({
-      status: 200,
-      message: en.user.createSuccess,
-      data: {
-        id: user.id,
-        fName,
-        lName,
-        email,
-        dob,
-      },
-    });
+    //   send verification mail
+    sendVerificationMail(req, res);
   } else {
     res.status(400).json({
       status: 400,
@@ -72,6 +66,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+// @POST
 // Login user
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body.data;
@@ -107,6 +102,51 @@ const loginUser = asyncHandler(async (req, res) => {
     });
     throw new Error(en.user.incorrectPassword);
   }
+});
+
+// @GET
+// Send verification email
+const sendVerificationMail = asyncHandler(async (req, res) => {
+  const { email } = req.body.data;
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.NODEMAILER_EMAIL,
+      pass: process.env.NODEMAILER_PASS,
+    },
+  });
+
+  const options = {
+    from: process.env.NODEMAILER_EMAIL,
+    to: email,
+    subject: "[Email-Verification] Metamorphix",
+    text: `<url-for-UI-that-will-call-verification-api>/?email=${email}`,
+  };
+
+  transporter.sendMail(options, (err, info) => {
+    if (err) {
+      console.log(en.mailer.failed);
+      res.status(400).json({
+        status: 400,
+        message: en.mailer.failed,
+      });
+      console.log(err);
+      throw new Error(en.mailer.failed);
+    } else {
+      res.status(200).json({
+        status: 400,
+        message: en.mailer.success,
+        info,
+        data: {
+          ...req.body?.data,
+        },
+      });
+
+      console.log(en.mailer.success);
+      console.log(info);
+    }
+  });
 });
 
 const generateToken = (id) => {

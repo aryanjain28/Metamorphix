@@ -11,6 +11,11 @@ const en = {
     notFound: "User not found",
     incorrectPassword: "Incorrect Password",
   },
+
+  mailer: {
+    failed: "Failed to send verification email",
+    success: "Successfully sent verification email",
+  },
 };
 
 module.exports = en;
