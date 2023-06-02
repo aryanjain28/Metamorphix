@@ -55,8 +55,17 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    //   send verification mail
-    sendVerificationMail(req, res);
+    res.status(200).json({
+      status: 200,
+      message: en.user.createSuccess,
+      data: {
+        fName,
+        lName,
+        email,
+        verified: false,
+        dob,
+      },
+    });
   } else {
     res.status(400).json({
       status: 400,
@@ -107,7 +116,7 @@ const loginUser = asyncHandler(async (req, res) => {
 // @GET
 // Send verification email
 const sendVerificationMail = asyncHandler(async (req, res) => {
-  const { email } = req.body.data;
+  const { to: email } = req.query;
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -138,9 +147,6 @@ const sendVerificationMail = asyncHandler(async (req, res) => {
         status: 400,
         message: en.mailer.success,
         info,
-        data: {
-          ...req.body?.data,
-        },
       });
 
       console.log(en.mailer.success);
@@ -154,7 +160,8 @@ const generateToken = (id) => {
 };
 
 module.exports = {
+  getUserInfo,
+  sendVerificationMail,
   registerUser,
   loginUser,
-  getUserInfo,
 };
