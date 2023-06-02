@@ -11,6 +11,7 @@ const en = {
     notFound: "User not found",
     incorrectPassword: "Incorrect Password",
     verified: "Verified successfully",
+    notVerified: "User is not verified",
   },
 
   mailer: {

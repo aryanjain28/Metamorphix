@@ -97,6 +97,9 @@ const loginUser = asyncHandler(async (req, res) => {
       message: en.user.notFound,
     });
     throw new Error(en.user.notFound);
+  } else if (!user.verified) {
+    res.status(401).json({ status: 401, message: en.user.notVerified });
+    throw new Error(en.user.notVerified);
   }
 
   if (await bcrypt.compare(password, user.password)) {
