@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const asynHandler = require("express-async-handler");
 const { User } = require("../models/userModel");
+const en = require("../utils/constants");
 
 const authorized = asynHandler(async (req, res, next) => {
   let token;
@@ -14,8 +15,17 @@ const authorized = asynHandler(async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = await User.findById(decoded.id).select("-password");
+      const user = await User.findOne({ _id: decoded.id }).select("-password");
 
+      if (!user) {
+        res.status(404).json({
+          message: en.user.notFound,
+          status: 404,
+        });
+        throw new Error(en.user.notFound);
+      }
+
+      req.user = user;
       next();
     } catch (error) {
       console.log(error);

@@ -10,17 +10,7 @@ const { isDateValid } = require("../utils/utils");
 // @GET
 // Get User Info
 const getUserInfo = asyncHandler(async (req, res) => {
-  const { u_id: userId } = req.query;
-  const user = await User.findOne({ _id: userId }).select("-password");
-  console.log(user);
-  if (!user) {
-    res.status(404).json({
-      message: en.user.notFound,
-      status: 404,
-    });
-    throw new Error(en.user.notFound);
-  }
-  res.status(200).json({ data: user, status: 200 });
+  res.status(200).json({ data: req.user, status: 200 });
 });
 
 // @POST
