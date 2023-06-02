@@ -116,7 +116,17 @@ const loginUser = asyncHandler(async (req, res) => {
 // @GET
 // Send verification email
 const sendVerificationMail = asyncHandler(async (req, res) => {
-  const { to: email } = req.query;
+  const { email } = req.body.data;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(404).json({
+      status: 404,
+      message: en.user.notFound,
+    });
+    throw new Error(en.user.notFound);
+  }
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -155,6 +165,10 @@ const sendVerificationMail = asyncHandler(async (req, res) => {
   });
 });
 
+// @GET
+// Verify user
+const verifyUserEmail = asyncHandler(async (req, res) => {});
+
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
@@ -164,4 +178,5 @@ module.exports = {
   sendVerificationMail,
   registerUser,
   loginUser,
+  verifyUserEmail,
 };
