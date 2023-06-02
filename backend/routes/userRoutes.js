@@ -4,12 +4,12 @@ const {
   loginUser,
   getUserInfo,
   sendVerificationMail,
-  verifyUserEmail
+  verifyUserEmail,
 } = require("../controllers/userController");
 
 const router = express.Router();
 
-router.get("/user/:userId", getUserInfo);
+router.get("/user", getUserInfo);
 router.get("/user/verify", verifyUserEmail);
 router.post("/user/verify", sendVerificationMail);
 router.post("/user/register", registerUser);

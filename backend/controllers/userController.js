@@ -10,7 +10,9 @@ const { isDateValid } = require("../utils/utils");
 // @GET
 // Get User Info
 const getUserInfo = asyncHandler(async (req, res) => {
-  const user = await User.findOne({ id: req.body.params }).select("-password");
+  const { u_id: userId } = req.query;
+  const user = await User.findOne({ _id: userId }).select("-password");
+  console.log(user);
   if (!user) {
     res.status(404).json({
       message: en.user.notFound,
@@ -167,7 +169,28 @@ const sendVerificationMail = asyncHandler(async (req, res) => {
 
 // @GET
 // Verify user
-const verifyUserEmail = asyncHandler(async (req, res) => {});
+const verifyUserEmail = asyncHandler(async (req, res) => {
+  const { email } = req.query;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(404).json({
+      status: 404,
+      message: en.user.notFound,
+    });
+    throw new Error(en.user.notFound);
+  }
+
+  user.verified = true;
+  user.save();
+
+  res.status(200).json({
+    status: 200,
+    message: en.user.verified,
+  });
+  throw new Error(en.user.verified);
+});
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
