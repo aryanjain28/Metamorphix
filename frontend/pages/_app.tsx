@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { ROUTES } from "../constants/routes";
 import { toast, ToastContainer } from "react-toastify";
 import { AppProps } from "next/app";
+import "../styles/globals.css"
 
 // 1. Checks if token is available or not.
 // 2. If no token; log out!
@@ -19,7 +20,7 @@ const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // List of pages that do not require auth-token
   const isNoAuthPage =
     ROUTES.login.includes(router.pathname) ||
-    ROUTES.signup.includes(router.pathname) ||
+    ROUTES.register.includes(router.pathname) ||
     ROUTES.verify.includes(router.pathname);
 
   // Checks the current page and then checks the token!

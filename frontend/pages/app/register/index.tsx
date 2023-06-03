@@ -1,8 +1,8 @@
 import React from "react";
 import { Grid, Paper } from "@mui/material";
-import { LoginForm } from "../../../components/forms/Login";
+import { RegisterForm } from "../../../components/forms/Register";
 
-function Login(props: any) {
+function Register(props: any) {
   return (
     <Grid container sx={{ minHeight: "100vh" }}>
       <Grid
@@ -23,10 +23,10 @@ function Login(props: any) {
         }}
       />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <LoginForm />
+        <RegisterForm />
       </Grid>
     </Grid>
   );
 }
 
-export default Login;
+export default Register;

@@ -2,7 +2,7 @@ export const API_ROUTES = {};
 
 export const ROUTES = {
   login: "/app/login",
-  signup: "/app/signup",
+  register: "/app/register",
   verify: "/app/verify",
   dashboard: "app/dashboard",
 };
