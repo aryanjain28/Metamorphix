@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { ROUTES } from "../constants/routes";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { AppProps } from "next/app";
 
 // 1. Checks if token is available or not.
@@ -51,6 +51,7 @@ const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
+      <ToastContainer position="top-right" theme="light" />
       <AuthWrapper>
         <Component {...pageProps} />
       </AuthWrapper>
