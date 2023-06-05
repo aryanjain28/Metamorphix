@@ -1,8 +1,11 @@
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import React, { useState } from "react";
-import TextField from "../fields/TextField";
 import LoginIcon from "@mui/icons-material/VpnKey";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Link from "next/link";
+import PasswordField from "../fields/PasswordField";
+import TextField from "../fields/TextField";
 
 export const LoginForm = () => {
   const initFields = {
@@ -11,6 +14,8 @@ export const LoginForm = () => {
     email: "",
     password: "",
   };
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [fields, setFields] = useState<LoginFields>(initFields);
   return (
     <Box
@@ -30,12 +35,18 @@ export const LoginForm = () => {
         </Typography>
       </Box>
 
-      <TextField sx={{ m: 1.5 }} label="Email" value="" onChange={() => {}} />
       <TextField
-        sx={{ m: 1.5 }}
-        label="Password"
-        value=""
-        onChange={() => {}}
+        label="Email"
+        type="email"
+        value={fields.email}
+        onChange={(email) => setFields({ ...fields, email })}
+        required
+      />
+
+      <PasswordField
+        value={fields.password}
+        onChange={(password) => setFields({ ...fields, password })}
+        required
       />
 
       <Button fullWidth sx={{ m: 4 }} variant="contained">

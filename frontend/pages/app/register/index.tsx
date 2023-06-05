@@ -1,5 +1,5 @@
-import React from "react";
-import { Grid, Paper } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Grid, Paper, Typography } from "@mui/material";
 import { RegisterForm } from "../../../components/forms/Register";
 
 function Register(props: any) {

@@ -1,40 +1,26 @@
 import { TextField } from "@mui/material";
-import React from "react";
 
-const TextFieldComponent = (props: TextFieldProps) => {
-  const {
-    name,
-    sx = {},
-    type = "text",
-    value,
-    label = "",
-    disabled = false,
-    onChange,
-  } = props;
+const TextFieldComp = (props: TextFieldProps) => {
+  const { type = "text", value, onChange, label, required = false } = props;
   return (
     <TextField
-      fullWidth
-      name={name}
-      sx={{ p: 0, ...sx }}
-      variant="outlined"
+      sx={{ m: 1.5 }}
       type={type}
       label={label}
       value={value}
-      onChange={(e) => onChange(e.target.value)}
-      disabled={disabled}
+      onChange={({ target: { value } }) => onChange(value)}
+      required={required}
+      fullWidth
     />
   );
 };
 
-// interfaces
 interface TextFieldProps {
-  name?: string;
-  sx?: any;
-  type?: string;
   value: string | null;
-  label?: string;
-  disabled?: boolean;
-  onChange: (value: string) => void;
+  onChange: (p: string) => void;
+  label: string;
+  required?: boolean;
+  type?: string;
 }
 
-export default TextFieldComponent;
+export default TextFieldComp;

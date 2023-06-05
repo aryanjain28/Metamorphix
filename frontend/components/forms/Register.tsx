@@ -1,7 +1,9 @@
-import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import React, { useState } from "react";
 import RegisterIcon from "@mui/icons-material/HowToReg";
 import Link from "next/link";
+import TextField from "../fields/TextField";
+import PasswordField from "../fields/PasswordField";
 
 export const RegisterForm = () => {
   const initFields = {
@@ -30,43 +32,27 @@ export const RegisterForm = () => {
       </Box>
 
       <TextField
-        sx={{ m: 1.5 }}
         label="First Name"
-        value=""
-        onChange={() => {}}
+        value={fields.fName}
+        onChange={(fName) => setFields({ ...fields, fName })}
         required
-        fullWidth
       />
       <TextField
-        sx={{ m: 1.5 }}
         label="Last Name (Optional)"
-        value=""
-        onChange={() => {}}
-        fullWidth
+        value={fields.lName}
+        onChange={(lName) => setFields({ ...fields, lName })}
       />
       <TextField
-        sx={{ m: 1.5 }}
         label="Email"
-        value=""
-        onChange={() => {}}
+        type="email"
+        value={fields.email}
+        onChange={(email) => setFields({ ...fields, email })}
         required
-        fullWidth
       />
-      <TextField
-        sx={{ m: 1.5 }}
-        label="Password"
-        value=""
-        onChange={() => {}}
+      <PasswordField
+        value={fields.password}
+        onChange={(password) => setFields({ ...fields, password })}
         required
-        fullWidth
-      />
-      <TextField
-        sx={{ m: 1.5 }}
-        label="Confirm Password"
-        value=""
-        onChange={() => {}}
-        required
-        fullWidth
       />
 
       <Button fullWidth sx={{ m: 4 }} variant="contained">
