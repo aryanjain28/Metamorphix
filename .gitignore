@@ -10,6 +10,11 @@ Private
 /frontend/node_modules
 /frontend/.pnp
 /frontend/.pnp.js
+/frontend/.env
+/frontend/.env.local
+/frontend/.env.development.local
+/frontend/.env.test.local
+/frontend/.env.production.local
 
 # testing
 /frontend/coverage
