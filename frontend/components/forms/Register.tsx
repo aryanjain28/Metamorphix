@@ -4,8 +4,11 @@ import RegisterIcon from "@mui/icons-material/HowToReg";
 import Link from "next/link";
 import TextField from "../fields/TextField";
 import PasswordField from "../fields/PasswordField";
+import { useRegisterUser } from "../../hooks/user.hooks";
 
 export const RegisterForm = () => {
+  const { mutate: registerUser, isLoading } = useRegisterUser();
+
   const initFields = {
     fName: "",
     lName: "",
@@ -13,7 +16,15 @@ export const RegisterForm = () => {
     password: "",
   };
 
-  const handleRegisterClick = () => {};
+  const handleRegisterClick = () => {
+    // call register API
+    registerUser({
+      payload: fields,
+      callback: () => {
+        // TODO
+      },
+    });
+  };
 
   const [fields, setFields] = useState<RegisterFields>(initFields);
   return (
@@ -51,6 +62,15 @@ export const RegisterForm = () => {
         value={fields.email}
         onChange={(email) => setFields({ ...fields, email })}
         required
+        endIcon={
+          <Box display="flex" alignContent="center" justifyContent="end">
+            <div onClick={() => {}}>
+              <Typography sx={{ cursor: "pointer" }} variant="body2">
+                Verify
+              </Typography>
+            </div>
+          </Box>
+        }
       />
       <PasswordField
         value={fields.password}
@@ -86,7 +106,7 @@ export const RegisterForm = () => {
 // interfaces
 interface RegisterFields {
   fName: string;
-  lName: string;
+  lName?: string;
   email: string;
   password: string;
 }

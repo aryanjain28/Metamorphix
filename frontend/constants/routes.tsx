@@ -1,4 +1,7 @@
-export const API_ROUTES = {};
+export const API_ROUTES = {
+  registerUser: "/users/user/register",
+  loginUser: "/users/user/login",
+};
 
 export const ROUTES = {
   login: "/app/login",
