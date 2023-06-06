@@ -12,6 +12,9 @@ export const RegisterForm = () => {
     email: "",
     password: "",
   };
+
+  const handleRegisterClick = () => {};
+
   const [fields, setFields] = useState<RegisterFields>(initFields);
   return (
     <Box
@@ -55,7 +58,12 @@ export const RegisterForm = () => {
         required
       />
 
-      <Button fullWidth sx={{ m: 4 }} variant="contained">
+      <Button
+        fullWidth
+        sx={{ m: 4 }}
+        variant="contained"
+        onClick={handleRegisterClick}
+      >
         Get Started
       </Button>
       <Box

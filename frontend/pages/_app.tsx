@@ -3,7 +3,8 @@ import React, { useEffect } from "react";
 import { ROUTES } from "../constants/routes";
 import { toast, ToastContainer } from "react-toastify";
 import { AppProps } from "next/app";
-import "../styles/globals.css"
+import { QueryClientProvider, QueryClient } from "react-query";
+import "../styles/globals.css";
 
 // 1. Checks if token is available or not.
 // 2. If no token; log out!
@@ -53,9 +54,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <ToastContainer position="top-right" theme="light" />
-      <AuthWrapper>
-        <Component {...pageProps} />
-      </AuthWrapper>
+      <QueryClientProvider client={new QueryClient({})}>
+        <AuthWrapper>
+          <Component {...pageProps} />
+        </AuthWrapper>
+      </QueryClientProvider>
     </>
   );
 }
