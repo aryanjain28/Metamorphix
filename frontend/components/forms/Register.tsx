@@ -1,23 +1,11 @@
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Divider,
-  Grid,
-  Modal,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 import RegisterIcon from "@mui/icons-material/HowToReg";
 import Link from "next/link";
 import TextField from "../fields/TextField";
 import PasswordField from "../fields/PasswordField";
 import { useRegisterUser } from "../../hooks/user.hooks";
-import { CloseOutlined, Visibility } from "@mui/icons-material";
+import { VerificationModal } from "../modals/verification";
 
 export const RegisterForm = () => {
   const { mutate: registerUser, isLoading } = useRegisterUser();
@@ -30,6 +18,7 @@ export const RegisterForm = () => {
   };
 
   const handleRegisterClick = () => {
+    setOpen(true);
     // call register API
     registerUser({
       payload: fields,
@@ -40,18 +29,7 @@ export const RegisterForm = () => {
   };
 
   const [fields, setFields] = useState<RegisterFields>(initFields);
-  const [code, setCode] = useState<number | null>(null);
   const [open, setOpen] = useState<boolean>(false);
-
-  const handleVerificationCode = (code: string) => {
-    if (code) {
-      if (code.length <= 6) {
-        setCode(Number(code));
-      }
-    } else {
-      setCode(null);
-    }
-  };
 
   return (
     <>
@@ -89,25 +67,6 @@ export const RegisterForm = () => {
           value={fields.email}
           onChange={(email) => setFields({ ...fields, email })}
           required
-          InputProps={{
-            endAdornment: fields?.email ? (
-              <Box display="flex" alignContent="center" justifyContent="end">
-                <div onClick={() => setOpen(true)}>
-                  <Typography
-                    sx={{
-                      color: "green",
-                      cursor: "pointer",
-                    }}
-                    variant="body2"
-                  >
-                    Verify
-                  </Typography>
-                </div>
-              </Box>
-            ) : (
-              <></>
-            ),
-          }}
         />
         <PasswordField
           value={fields.password}
@@ -137,57 +96,11 @@ export const RegisterForm = () => {
           </Link>
         </Box>
       </Box>
-
-      <Dialog open={open} fullWidth maxWidth="sm">
-        <DialogTitle>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Typography>Modal Title</Typography>
-            <div
-              onClick={() => {
-                setOpen(false);
-                setCode(null);
-              }}
-            >
-              <CloseOutlined sx={{ cursor: "pointer" }} />
-            </div>
-          </Box>
-        </DialogTitle>
-        <Divider />
-
-        <DialogContent>
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-            p={1}
-          >
-            <Typography variant="body2">
-              Enter 6-digit verification code sent to "{fields.email}"
-            </Typography>
-            <TextField
-              variant="filled"
-              type="number"
-              value={String(code)}
-              onChange={handleVerificationCode}
-              label="Verification Code"
-              sx={{ mx: 0, my: 2, width: "50%", spacing: 212 }}
-              InputProps={{ style: { fontSize: 30, letterSpacing: 18 } }}
-            />
-          </Box>
-        </DialogContent>
-
-        <Divider />
-        <DialogActions>
-          <Button variant="contained" disabled={String(code).length !== 6}>
-            Verify
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <VerificationModal
+        open={open}
+        setOpen={(p) => setOpen(p)}
+        email={fields.email}
+      />
     </>
   );
 };

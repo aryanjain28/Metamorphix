@@ -16,6 +16,7 @@ const TextFieldComp = (props: TextFieldProps) => {
     label,
     required = false,
     InputProps = {},
+    placeholder = "",
   } = props;
   return (
     <TextField
@@ -28,6 +29,7 @@ const TextFieldComp = (props: TextFieldProps) => {
       required={required}
       fullWidth
       InputProps={InputProps}
+      placeholder={placeholder}
     />
   );
 };
@@ -40,6 +42,7 @@ interface TextFieldProps {
   label: string;
   required?: boolean;
   type?: string;
+  placeholder?: string;
   InputProps?:
     | Partial<FilledInputProps>
     | Partial<OutlinedInputProps>
