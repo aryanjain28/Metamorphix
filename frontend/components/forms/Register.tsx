@@ -83,11 +83,8 @@ export const RegisterForm = () => {
           width="100%"
           display="flex"
           alignItems="center"
-          justifyContent="space-between"
+          justifyContent="end"
         >
-          <Link href="">
-            <Typography variant="body2">Forgot Password?</Typography>
-          </Link>
           <Link href={"/app/login"}>
             <Typography variant="body2">Already have an account?</Typography>
           </Link>
