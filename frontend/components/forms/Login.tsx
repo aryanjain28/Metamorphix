@@ -1,11 +1,10 @@
-import { Box, Button, Grid, Paper, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 import LoginIcon from "@mui/icons-material/VpnKey";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Link from "next/link";
 import PasswordField from "../fields/PasswordField";
 import TextField from "../fields/TextField";
+import Button from "../buttons/Button";
 
 export const LoginForm = () => {
   const initFields = {
@@ -49,9 +48,8 @@ export const LoginForm = () => {
         required
       />
 
-      <Button fullWidth sx={{ m: 4 }} variant="contained">
-        Login
-      </Button>
+      <Button sx={{ my: 2 }} onClick={() => {}} label={"Login"} />
+
       <Box
         width="100%"
         display="flex"
