@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 import RegisterIcon from "@mui/icons-material/HowToReg";
 import Link from "next/link";
@@ -6,6 +6,7 @@ import TextField from "../fields/TextField";
 import PasswordField from "../fields/PasswordField";
 import { useRegisterUser } from "../../hooks/user.hooks";
 import { VerificationModal } from "../modals/verification";
+import Button from "../buttons/Button";
 
 export const RegisterForm = () => {
   const { mutate: registerUser, isLoading } = useRegisterUser();
@@ -73,15 +74,11 @@ export const RegisterForm = () => {
           onChange={(password) => setFields({ ...fields, password })}
           required
         />
-
         <Button
-          fullWidth
-          sx={{ m: 4 }}
-          variant="contained"
+          sx={{ my: 2 }}
+          label="Get Started"
           onClick={handleRegisterClick}
-        >
-          Get Started
-        </Button>
+        />
         <Box
           width="100%"
           display="flex"

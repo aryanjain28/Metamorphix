@@ -1,7 +1,6 @@
 import { CloseOutlined } from "@mui/icons-material";
 import {
   Box,
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -9,6 +8,7 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
+import Button from "../buttons/Button";
 
 const Modal = (props: ModalProps) => {
   const {
@@ -41,9 +41,11 @@ const Modal = (props: ModalProps) => {
 
       <Divider />
       <DialogActions>
-        <Button variant="contained" disabled={isDisabled} onClick={onSuccess}>
-          {successBtnText}
-        </Button>
+        <Button
+          sx={{ width: "25%" }}
+          onClick={onSuccess}
+          label={successBtnText}
+        />
       </DialogActions>
     </Dialog>
   );
